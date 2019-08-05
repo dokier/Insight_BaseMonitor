@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0eb05f6c04b94564b910c231baa4170e" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="InsightModel.Instance" Width="2" PointX="5.625" PointY="4" />
+        <EntityTypeShape EntityType="InsightModel.InstanceDetail" Width="2" PointX="1.5" PointY="7.75" />
+        <EntityTypeShape EntityType="InsightModel.Job" Width="2" PointX="14.5" PointY="2.5" />
+        <EntityTypeShape EntityType="InsightModel.JobLog" Width="1.875" PointX="14.625" PointY="5.5" />
+        <EntityTypeShape EntityType="InsightModel.DatabaseOption" Width="2" PointX="3.625" PointY="7.75" />
+        <AssociationConnector Association="InsightModel.JobJobStepLog" />
+        <AssociationConnector Association="InsightModel.InstanceInstanceDetail" />
+        <AssociationConnector Association="InsightModel.InstanceDatabaseOption" />
+        <EntityTypeShape EntityType="InsightModel.Backup" Width="1.875" PointX="5.75" PointY="7.75" />
+        <AssociationConnector Association="InsightModel.InstanceBackup" />
+        <EntityTypeShape EntityType="InsightModel.Drive" Width="1.875" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="InsightModel.DatabaseFile" Width="2" PointX="9.75" PointY="7.75" />
+        <AssociationConnector Association="InsightModel.InstanceDrive" />
+        <AssociationConnector Association="InsightModel.InstanceDatabaseFile" />
+        <EntityTypeShape EntityType="InsightModel.DatabaseSize" Width="2" PointX="1.5" PointY="0.5" />
+        <AssociationConnector Association="InsightModel.InstanceDatabaseSize" />
+        <EntityTypeShape EntityType="InsightModel.UserMembership" Width="2.25" PointX="3.75" PointY="0.5" />
+        <AssociationConnector Association="InsightModel.InstanceUserMembership" />
+        <EntityTypeShape EntityType="InsightModel.LoginMembership" Width="1.875" PointX="6.25" PointY="0.5" />
+        <AssociationConnector Association="InsightModel.InstanceLoginMembership" />
+        <EntityTypeShape EntityType="InsightModel.LogSize" Width="2" PointX="8.375" PointY="0.5" />
+        <AssociationConnector Association="InsightModel.InstanceLogSize" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

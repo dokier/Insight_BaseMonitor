@@ -1,0 +1,993 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InsightModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="InsightModelStoreContainer">
+    <EntitySet Name="Instances" EntityType="InsightModel.Store.Instances" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InstanceDetails" EntityType="InsightModel.Store.InstanceDetails" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Jobs" EntityType="InsightModel.Store.Jobs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JobLogs" EntityType="InsightModel.Store.JobLogs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DatabaseOptions" EntityType="InsightModel.Store.DatabaseOptions" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Backups" EntityType="InsightModel.Store.Backups" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Drives" EntityType="InsightModel.Store.Drives" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DatabaseFiles" EntityType="InsightModel.Store.DatabaseFiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DatabaseSize" EntityType="InsightModel.Store.DatabaseSize" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserMembership" EntityType="InsightModel.Store.UserMembership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LoginMembership" EntityType="InsightModel.Store.LoginMembership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LogSize" EntityType="InsightModel.Store.LogSize" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="JobJobStepLog" Association="InsightModel.Store.JobJobStepLog">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="JobStepLog" EntitySet="JobLogs" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceInstanceDetail" Association="InsightModel.Store.InstanceInstanceDetail">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="InstanceDetail" EntitySet="InstanceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceDatabaseOption" Association="InsightModel.Store.InstanceDatabaseOption">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="DatabaseOption" EntitySet="DatabaseOptions" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceBackup" Association="InsightModel.Store.InstanceBackup">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="Backup" EntitySet="Backups" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceDrive" Association="InsightModel.Store.InstanceDrive">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="Drive" EntitySet="Drives" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceDatabaseFile" Association="InsightModel.Store.InstanceDatabaseFile">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="DatabaseFile" EntitySet="DatabaseFiles" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceDatabaseSize" Association="InsightModel.Store.InstanceDatabaseSize">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="DatabaseSize" EntitySet="DatabaseSize" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceUserMembership" Association="InsightModel.Store.InstanceUserMembership">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="UserMembership" EntitySet="UserMembership" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceLoginMembership" Association="InsightModel.Store.InstanceLoginMembership">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="LoginMembership" EntitySet="LoginMembership" />
+    </AssociationSet>
+    <AssociationSet Name="InstanceLogSize" Association="InsightModel.Store.InstanceLogSize">
+      <End Role="Instance" EntitySet="Instances" />
+      <End Role="LogSize" EntitySet="LogSize" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Instances">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="70" />
+    <Property Name="Environment" Type="char" Nullable="false" MaxLength="3" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+    <Property Name="Habitat" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="Comments" Type="varchar" Nullable="true" MaxLength="140" />
+  </EntityType>
+  <EntityType Name="InstanceDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Edition" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Version" Type="char" Nullable="false" MaxLength="15" />
+    <Property Name="ServicePack" Type="char" Nullable="false" MaxLength="3" />
+    <Property Name="MachineType" Type="varchar" Nullable="true" MaxLength="10" />
+    <Property Name="AuthMode" Type="bit" Nullable="false" />
+    <Property Name="TcpPort" Type="int" Nullable="false" />
+    <Property Name="BackupCompression" Type="bit" Nullable="true" />
+    <Property Name="PowerPlan" Type="varchar" Nullable="false" MaxLength="16" />
+    <Property Name="MaxDOP" Type="smallint" Nullable="false" />
+    <Property Name="Xp_Cmdshell" Type="bit" Nullable="false" />
+    <Property Name="MaxServerMemory_MB" Type="int" Nullable="false" />
+    <Property Name="MinServerMemory_MB" Type="int" Nullable="false" />
+    <Property Name="ServerMemory_MB" Type="bigint" Nullable="false" />
+    <Property Name="CPU_Count" Type="int" Nullable="false" />
+    <Property Name="InstallDate" Type="datetime" Nullable="false" />
+    <Property Name="LastStartDate" Type="datetime" Nullable="true" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="RunDate" Type="datetime" Nullable="true" />
+    <Property Name="RunCount" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="JobLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="JobId" Type="int" Nullable="false" />
+    <Property Name="Type" Type="char" Nullable="false" MaxLength="3" />
+    <Property Name="Message" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DatabaseOptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Compatibility" Type="smallint" Nullable="false" />
+    <Property Name="StateDesc" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="UserAccessDesc" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="RecoveryModel" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="Collation" Type="varchar" Nullable="true" MaxLength="60" />
+    <Property Name="PageVerify" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="ReadOnly" Type="bit" Nullable="false" />
+    <Property Name="AutoClose" Type="bit" Nullable="false" />
+    <Property Name="AutoShrink" Type="bit" Nullable="false" />
+    <Property Name="AutoCreateStats" Type="bit" Nullable="false" />
+    <Property Name="AutoUpdateStats" Type="bit" Nullable="false" />
+    <Property Name="FullText" Type="bit" Nullable="false" />
+    <Property Name="DbChaining" Type="bit" Nullable="false" />
+    <Property Name="Trustworthy" Type="bit" Nullable="false" />
+    <Property Name="Owner" Type="varchar" Nullable="false" MaxLength="80" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Backups">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DBName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="TapeFull" Type="datetime" Nullable="true" />
+    <Property Name="TapeDiff" Type="datetime" Nullable="true" />
+    <Property Name="DiskFull" Type="datetime" Nullable="true" />
+    <Property Name="DiskDiff" Type="datetime" Nullable="true" />
+    <Property Name="DiskTlog" Type="datetime" Nullable="true" />
+    <Property Name="RecoveryModel" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="StateDesc" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="Updateability" Type="varchar" Nullable="false" MaxLength="128" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Drives">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DriveName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Capacity_GB" Type="int" Nullable="false" />
+    <Property Name="Used_GB" Type="int" Nullable="false" />
+    <Property Name="Free_GB" Type="int" Nullable="false" />
+    <Property Name="PercentFree" Type="int" Nullable="false" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DatabaseFiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DBName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LogicalName" Type="varchar" Nullable="false" MaxLength="150" />
+    <Property Name="Type" Type="char" Nullable="false" MaxLength="9" />
+    <Property Name="Total_Space_MB" Type="int" Nullable="false" />
+    <Property Name="Used_Space_MB" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Free_Space_MB" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PercentUsed" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PhysicalName" Type="varchar" Nullable="false" MaxLength="255" />
+    <Property Name="FileGroup" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="FileGrowth" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AutoGrowth" Type="char" Nullable="false" MaxLength="8" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DatabaseSize">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Size" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Used_Space_MB" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Free_Space_MB" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PercentFree" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Updateability" Type="varchar" Nullable="false" MaxLength="128" />
+    <Property Name="StateDesc" Type="varchar" Nullable="false" MaxLength="60" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserMembership">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DBName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="GroupName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LoginName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Def_DBName" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="Def_SchemaName" Type="varchar" Nullable="true" MaxLength="100" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginMembership">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LoginName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Type" Type="char" Nullable="false" MaxLength="13" />
+    <Property Name="ServerRole" Type="varchar" Nullable="false" MaxLength="25" />
+    <Property Name="Disabled" Type="bit" Nullable="false" />
+    <Property Name="Def_DBName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LogSize">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DBName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LogSize_MB" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PercentUsed" Type="decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="RunDate" Type="datetime" Nullable="false" />
+    <Property Name="RunCount" Type="int" Nullable="false" />
+    <Property Name="InstanceId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="JobJobStepLog">
+    <End Role="Job" Type="InsightModel.Store.Jobs" Multiplicity="1" />
+    <End Role="JobStepLog" Type="InsightModel.Store.JobLogs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JobStepLog">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceInstanceDetail">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="InstanceDetail" Type="InsightModel.Store.InstanceDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InstanceDetail">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceDatabaseOption">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="DatabaseOption" Type="InsightModel.Store.DatabaseOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DatabaseOption">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceBackup">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="Backup" Type="InsightModel.Store.Backups" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Backup">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceDrive">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="Drive" Type="InsightModel.Store.Drives" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Drive">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceDatabaseFile">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="DatabaseFile" Type="InsightModel.Store.DatabaseFiles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DatabaseFile">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceDatabaseSize">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="DatabaseSize" Type="InsightModel.Store.DatabaseSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DatabaseSize">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceUserMembership">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="UserMembership" Type="InsightModel.Store.UserMembership" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserMembership">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceLoginMembership">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="LoginMembership" Type="InsightModel.Store.LoginMembership" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LoginMembership">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstanceLogSize">
+    <End Role="Instance" Type="InsightModel.Store.Instances" Multiplicity="1" />
+    <End Role="LogSize" Type="InsightModel.Store.LogSize" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instance">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LogSize">
+        <PropertyRef Name="InstanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InsightModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="InsightEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Instances" EntityType="InsightModel.Instance" />
+          <EntitySet Name="InstanceDetails" EntityType="InsightModel.InstanceDetail" />
+          <EntitySet Name="Jobs" EntityType="InsightModel.Job" />
+          <EntitySet Name="JobLogs" EntityType="InsightModel.JobLog" />
+          <EntitySet Name="DatabaseOptions" EntityType="InsightModel.DatabaseOption" />
+          <AssociationSet Name="JobJobStepLog" Association="InsightModel.JobJobStepLog">
+            <End Role="Job" EntitySet="Jobs" />
+            <End Role="JobStepLog" EntitySet="JobLogs" />
+          </AssociationSet>
+          <AssociationSet Name="InstanceInstanceDetail" Association="InsightModel.InstanceInstanceDetail">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="InstanceDetail" EntitySet="InstanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="InstanceDatabaseOption" Association="InsightModel.InstanceDatabaseOption">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="DatabaseOption" EntitySet="DatabaseOptions" />
+          </AssociationSet>
+          <EntitySet Name="Backups" EntityType="InsightModel.Backup" />
+          <AssociationSet Name="InstanceBackup" Association="InsightModel.InstanceBackup">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="Backup" EntitySet="Backups" />
+          </AssociationSet>
+          <EntitySet Name="Drives" EntityType="InsightModel.Drive" />
+          <EntitySet Name="DatabaseFiles" EntityType="InsightModel.DatabaseFile" />
+          <AssociationSet Name="InstanceDrive" Association="InsightModel.InstanceDrive">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="Drive" EntitySet="Drives" />
+          </AssociationSet>
+          <AssociationSet Name="InstanceDatabaseFile" Association="InsightModel.InstanceDatabaseFile">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="DatabaseFile" EntitySet="DatabaseFiles" />
+          </AssociationSet>
+          <EntitySet Name="DatabaseSize" EntityType="InsightModel.DatabaseSize" />
+          <AssociationSet Name="InstanceDatabaseSize" Association="InsightModel.InstanceDatabaseSize">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="DatabaseSize" EntitySet="DatabaseSize" />
+          </AssociationSet>
+          <EntitySet Name="UserMembership" EntityType="InsightModel.UserMembership" />
+          <AssociationSet Name="InstanceUserMembership" Association="InsightModel.InstanceUserMembership">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="UserMembership" EntitySet="UserMembership" />
+          </AssociationSet>
+          <EntitySet Name="LoginMembership" EntityType="InsightModel.LoginMembership" />
+          <AssociationSet Name="InstanceLoginMembership" Association="InsightModel.InstanceLoginMembership">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="LoginMembership" EntitySet="LoginMembership" />
+          </AssociationSet>
+          <EntitySet Name="LogSize" EntityType="InsightModel.LogSize" />
+          <AssociationSet Name="InstanceLogSize" Association="InsightModel.InstanceLogSize">
+            <End Role="Instance" EntitySet="Instances" />
+            <End Role="LogSize" EntitySet="LogSize" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Instance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="70" Unicode="false" />
+          <Property Name="Environment" Type="String" Nullable="false" FixedLength="true" MaxLength="3" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="InstanceDetail" Relationship="InsightModel.InstanceInstanceDetail" FromRole="Instance" ToRole="InstanceDetail" />
+          <NavigationProperty Name="DatabaseOption" Relationship="InsightModel.InstanceDatabaseOption" FromRole="Instance" ToRole="DatabaseOption" />
+          <NavigationProperty Name="Backup" Relationship="InsightModel.InstanceBackup" FromRole="Instance" ToRole="Backup" />
+          <NavigationProperty Name="Drive" Relationship="InsightModel.InstanceDrive" FromRole="Instance" ToRole="Drive" />
+          <NavigationProperty Name="DatabaseFile" Relationship="InsightModel.InstanceDatabaseFile" FromRole="Instance" ToRole="DatabaseFile" />
+          <NavigationProperty Name="DatabaseSize" Relationship="InsightModel.InstanceDatabaseSize" FromRole="Instance" ToRole="DatabaseSize" />
+          <NavigationProperty Name="UserMembership" Relationship="InsightModel.InstanceUserMembership" FromRole="Instance" ToRole="UserMembership" />
+          <NavigationProperty Name="LoginMembership" Relationship="InsightModel.InstanceLoginMembership" FromRole="Instance" ToRole="LoginMembership" />
+          <Property Name="Habitat" Type="String" Nullable="false" FixedLength="false" MaxLength="30" Unicode="false" />
+          <Property Name="Comments" Type="String" Nullable="true" FixedLength="false" MaxLength="140" Unicode="false" />
+          <NavigationProperty Name="LogSize" Relationship="InsightModel.InstanceLogSize" FromRole="Instance" ToRole="LogSize" />
+        </EntityType>
+        <EntityType Name="InstanceDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Edition" Type="String" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
+          <Property Name="Version" Type="String" Nullable="false" FixedLength="true" MaxLength="15" Unicode="false" />
+          <Property Name="ServicePack" Type="String" Nullable="false" FixedLength="true" MaxLength="3" Unicode="false" />
+          <Property Name="MachineType" Type="String" Nullable="true" Unicode="false" MaxLength="10" />
+          <Property Name="AuthMode" Type="Boolean" Nullable="false" />
+          <Property Name="TcpPort" Type="Int32" Nullable="false" />
+          <Property Name="BackupCompression" Type="Boolean" Nullable="true" />
+          <Property Name="PowerPlan" Type="String" Nullable="false" FixedLength="false" MaxLength="16" Unicode="false" />
+          <Property Name="MaxDOP" Type="Int16" Nullable="false" />
+          <Property Name="Xp_Cmdshell" Type="Boolean" Nullable="false" />
+          <Property Name="MaxServerMemory_MB" Type="Int32" Nullable="false" />
+          <Property Name="MinServerMemory_MB" Type="Int32" Nullable="false" />
+          <Property Name="ServerMemory_MB" Type="Int64" Nullable="false" />
+          <Property Name="CPU_Count" Type="Int32" Nullable="false" />
+          <Property Name="InstallDate" Type="DateTime" Nullable="false" />
+          <Property Name="LastStartDate" Type="DateTime" Nullable="true" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceInstanceDetail" FromRole="InstanceDetail" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="Enabled" Type="Boolean" Nullable="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="true" />
+          <Property Name="RunCount" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="JobStepLog" Relationship="InsightModel.JobJobStepLog" FromRole="Job" ToRole="JobStepLog" />
+        </EntityType>
+        <EntityType Name="JobLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <Property Name="JobId" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" FixedLength="true" MaxLength="3" Unicode="false" />
+          <Property Name="Message" Type="String" Nullable="false" Unicode="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Job" Relationship="InsightModel.JobJobStepLog" FromRole="JobStepLog" ToRole="Job" />
+        </EntityType>
+        <EntityType Name="DatabaseOption">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="Compatibility" Type="Int16" Nullable="false" />
+          <Property Name="StateDesc" Type="String" Nullable="false" FixedLength="false" MaxLength="60" Unicode="false" />
+          <Property Name="UserAccessDesc" Type="String" Nullable="false" FixedLength="false" MaxLength="60" Unicode="false" />
+          <Property Name="RecoveryModel" Type="String" Nullable="false" FixedLength="false" MaxLength="60" Unicode="false" />
+          <Property Name="Collation" Type="String" Nullable="true" FixedLength="false" Unicode="false" MaxLength="60" />
+          <Property Name="PageVerify" Type="String" Nullable="false" FixedLength="false" MaxLength="60" Unicode="false" />
+          <Property Name="ReadOnly" Type="Boolean" Nullable="false" />
+          <Property Name="AutoClose" Type="Boolean" Nullable="false" />
+          <Property Name="AutoShrink" Type="Boolean" Nullable="false" />
+          <Property Name="AutoCreateStats" Type="Boolean" Nullable="false" />
+          <Property Name="AutoUpdateStats" Type="Boolean" Nullable="false" />
+          <Property Name="FullText" Type="Boolean" Nullable="false" />
+          <Property Name="DbChaining" Type="Boolean" Nullable="false" />
+          <Property Name="Trustworthy" Type="Boolean" Nullable="false" />
+          <Property Name="Owner" Type="String" Nullable="false" FixedLength="false" MaxLength="80" Unicode="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceDatabaseOption" FromRole="DatabaseOption" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="JobJobStepLog">
+          <End Type="InsightModel.Job" Role="Job" Multiplicity="1" />
+          <End Type="InsightModel.JobLog" Role="JobStepLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Job">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="JobStepLog">
+              <PropertyRef Name="JobId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InstanceInstanceDetail">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.InstanceDetail" Role="InstanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InstanceDetail">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InstanceDatabaseOption">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.DatabaseOption" Role="DatabaseOption" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatabaseOption">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Backup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="TapeFull" Type="DateTime" Nullable="true" />
+          <Property Name="TapeDiff" Type="DateTime" Nullable="true" />
+          <Property Name="DiskFull" Type="DateTime" Nullable="true" />
+          <Property Name="DiskDiff" Type="DateTime" Nullable="true" />
+          <Property Name="DiskTlog" Type="DateTime" Nullable="true" />
+          <Property Name="RecoveryModel" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="StateDesc" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Updateability" Type="String" Nullable="false" FixedLength="false" MaxLength="128" Unicode="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceBackup" FromRole="Backup" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceBackup">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.Backup" Role="Backup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Backup">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Drive">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DriveName" Type="String" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
+          <Property Name="Capacity_GB" Type="Int32" Nullable="false" />
+          <Property Name="Used_GB" Type="Int32" Nullable="false" />
+          <Property Name="Free_GB" Type="Int32" Nullable="false" />
+          <Property Name="PercentFree" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceDrive" FromRole="Drive" ToRole="Instance" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DatabaseFile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LogicalName" Type="String" Nullable="false" FixedLength="false" MaxLength="150" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" FixedLength="true" MaxLength="9" Unicode="false" />
+          <Property Name="Total_Space_MB" Type="Int32" Nullable="false" />
+          <Property Name="Used_Space_MB" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Free_Space_MB" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PercentUsed" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PhysicalName" Type="String" Nullable="false" FixedLength="false" MaxLength="255" Unicode="false" />
+          <Property Name="FileGroup" Type="String" Nullable="true" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="FileGrowth" Type="String" Nullable="false" FixedLength="false" MaxLength="50" Unicode="false" />
+          <Property Name="AutoGrowth" Type="String" Nullable="false" FixedLength="true" MaxLength="8" Unicode="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceDatabaseFile" FromRole="DatabaseFile" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceDrive">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.Drive" Role="Drive" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Drive">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InstanceDatabaseFile">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.DatabaseFile" Role="DatabaseFile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatabaseFile">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="DatabaseSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="Size" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Used_Space_MB" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Free_Space_MB" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PercentFree" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Updateability" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="StateDesc" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceDatabaseSize" FromRole="DatabaseSize" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceDatabaseSize">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.DatabaseSize" Role="DatabaseSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DatabaseSize">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserMembership">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="GroupName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="LoginName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="Def_DBName" Type="String" Nullable="true" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="Def_SchemaName" Type="String" Nullable="true" FixedLength="false" MaxLength="100" Unicode="false" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceUserMembership" FromRole="UserMembership" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceUserMembership">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.UserMembership" Role="UserMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserMembership">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LoginMembership">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" Nullable="false" FixedLength="true" MaxLength="13" Unicode="false" />
+          <Property Name="ServerRole" Type="String" Nullable="false" FixedLength="false" MaxLength="25" Unicode="false" />
+          <Property Name="Disabled" Type="Boolean" Nullable="false" />
+          <Property Name="Def_DBName" Type="String" Nullable="false" FixedLength="false" MaxLength="100" Unicode="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceLoginMembership" FromRole="LoginMembership" ToRole="Instance" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceLoginMembership">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.LoginMembership" Role="LoginMembership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LoginMembership">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LogSize">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DBName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LogSize_MB" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PercentUsed" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="RunDate" Type="DateTime" Nullable="false" />
+          <Property Name="RunCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instance" Relationship="InsightModel.InstanceLogSize" FromRole="LogSize" ToRole="Instance" />
+          <Property Name="InstanceId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="InstanceLogSize">
+          <End Type="InsightModel.Instance" Role="Instance" Multiplicity="1" />
+          <End Type="InsightModel.LogSize" Role="LogSize" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instance">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LogSize">
+              <PropertyRef Name="InstanceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="InsightModelStoreContainer" CdmEntityContainer="InsightEntities">
+    <EntitySetMapping Name="Instances">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.Instance)">
+        <MappingFragment StoreEntitySet="Instances">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Environment" ColumnName="Environment" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Habitat" ColumnName="Habitat" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstanceDetails">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.InstanceDetail)">
+        <MappingFragment StoreEntitySet="InstanceDetails">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Edition" ColumnName="Edition" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="ServicePack" ColumnName="ServicePack" />
+          <ScalarProperty Name="MachineType" ColumnName="MachineType" />
+          <ScalarProperty Name="AuthMode" ColumnName="AuthMode" />
+          <ScalarProperty Name="TcpPort" ColumnName="TcpPort" />
+          <ScalarProperty Name="BackupCompression" ColumnName="BackupCompression" />
+          <ScalarProperty Name="PowerPlan" ColumnName="PowerPlan" />
+          <ScalarProperty Name="MaxDOP" ColumnName="MaxDOP" />
+          <ScalarProperty Name="Xp_Cmdshell" ColumnName="Xp_Cmdshell" />
+          <ScalarProperty Name="MaxServerMemory_MB" ColumnName="MaxServerMemory_MB" />
+          <ScalarProperty Name="MinServerMemory_MB" ColumnName="MinServerMemory_MB" />
+          <ScalarProperty Name="ServerMemory_MB" ColumnName="ServerMemory_MB" />
+          <ScalarProperty Name="CPU_Count" ColumnName="CPU_Count" />
+          <ScalarProperty Name="InstallDate" ColumnName="InstallDate" />
+          <ScalarProperty Name="LastStartDate" ColumnName="LastStartDate" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.Job)">
+        <MappingFragment StoreEntitySet="Jobs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JobLogs">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.JobLog)">
+        <MappingFragment StoreEntitySet="JobLogs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="JobId" ColumnName="JobId" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatabaseOptions">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.DatabaseOption)">
+        <MappingFragment StoreEntitySet="DatabaseOptions">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Compatibility" ColumnName="Compatibility" />
+          <ScalarProperty Name="StateDesc" ColumnName="StateDesc" />
+          <ScalarProperty Name="UserAccessDesc" ColumnName="UserAccessDesc" />
+          <ScalarProperty Name="RecoveryModel" ColumnName="RecoveryModel" />
+          <ScalarProperty Name="Collation" ColumnName="Collation" />
+          <ScalarProperty Name="PageVerify" ColumnName="PageVerify" />
+          <ScalarProperty Name="ReadOnly" ColumnName="ReadOnly" />
+          <ScalarProperty Name="AutoClose" ColumnName="AutoClose" />
+          <ScalarProperty Name="AutoShrink" ColumnName="AutoShrink" />
+          <ScalarProperty Name="AutoCreateStats" ColumnName="AutoCreateStats" />
+          <ScalarProperty Name="AutoUpdateStats" ColumnName="AutoUpdateStats" />
+          <ScalarProperty Name="FullText" ColumnName="FullText" />
+          <ScalarProperty Name="DbChaining" ColumnName="DbChaining" />
+          <ScalarProperty Name="Trustworthy" ColumnName="Trustworthy" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Backups">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.Backup)">
+        <MappingFragment StoreEntitySet="Backups">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="TapeFull" ColumnName="TapeFull" />
+          <ScalarProperty Name="TapeDiff" ColumnName="TapeDiff" />
+          <ScalarProperty Name="DiskFull" ColumnName="DiskFull" />
+          <ScalarProperty Name="DiskDiff" ColumnName="DiskDiff" />
+          <ScalarProperty Name="DiskTlog" ColumnName="DiskTlog" />
+          <ScalarProperty Name="RecoveryModel" ColumnName="RecoveryModel" />
+          <ScalarProperty Name="StateDesc" ColumnName="StateDesc" />
+          <ScalarProperty Name="Updateability" ColumnName="Updateability" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Drives">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.Drive)">
+        <MappingFragment StoreEntitySet="Drives">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DriveName" ColumnName="DriveName" />
+          <ScalarProperty Name="Capacity_GB" ColumnName="Capacity_GB" />
+          <ScalarProperty Name="Used_GB" ColumnName="Used_GB" />
+          <ScalarProperty Name="Free_GB" ColumnName="Free_GB" />
+          <ScalarProperty Name="PercentFree" ColumnName="PercentFree" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatabaseFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.DatabaseFile)">
+        <MappingFragment StoreEntitySet="DatabaseFiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="LogicalName" ColumnName="LogicalName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Total_Space_MB" ColumnName="Total_Space_MB" />
+          <ScalarProperty Name="Used_Space_MB" ColumnName="Used_Space_MB" />
+          <ScalarProperty Name="Free_Space_MB" ColumnName="Free_Space_MB" />
+          <ScalarProperty Name="PercentUsed" ColumnName="PercentUsed" />
+          <ScalarProperty Name="PhysicalName" ColumnName="PhysicalName" />
+          <ScalarProperty Name="FileGroup" ColumnName="FileGroup" />
+          <ScalarProperty Name="FileGrowth" ColumnName="FileGrowth" />
+          <ScalarProperty Name="AutoGrowth" ColumnName="AutoGrowth" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DatabaseSize">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.DatabaseSize)">
+        <MappingFragment StoreEntitySet="DatabaseSize">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Used_Space_MB" ColumnName="Used_Space_MB" />
+          <ScalarProperty Name="Free_Space_MB" ColumnName="Free_Space_MB" />
+          <ScalarProperty Name="PercentFree" ColumnName="PercentFree" />
+          <ScalarProperty Name="Updateability" ColumnName="Updateability" />
+          <ScalarProperty Name="StateDesc" ColumnName="StateDesc" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserMembership">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.UserMembership)">
+        <MappingFragment StoreEntitySet="UserMembership">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Def_DBName" ColumnName="Def_DBName" />
+          <ScalarProperty Name="Def_SchemaName" ColumnName="Def_SchemaName" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginMembership">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.LoginMembership)">
+        <MappingFragment StoreEntitySet="LoginMembership">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ServerRole" ColumnName="ServerRole" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+          <ScalarProperty Name="Def_DBName" ColumnName="Def_DBName" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LogSize">
+      <EntityTypeMapping TypeName="IsTypeOf(InsightModel.LogSize)">
+        <MappingFragment StoreEntitySet="LogSize">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DBName" ColumnName="DBName" />
+          <ScalarProperty Name="LogSize_MB" ColumnName="LogSize_MB" />
+          <ScalarProperty Name="PercentUsed" ColumnName="PercentUsed" />
+          <ScalarProperty Name="RunDate" ColumnName="RunDate" />
+          <ScalarProperty Name="RunCount" ColumnName="RunCount" />
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
